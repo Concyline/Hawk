@@ -32,13 +32,11 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.Concyline'
             artifactId = 'Hawk'
-            version = '1.0.3'
-
-            // Usa o output do bundleReleaseAar corretamente
+            version = '1.0.4'
             afterEvaluate {
-                artifact(tasks.named("bundleReleaseAar").flatMap { task ->
-                    task.outputs.files.singleFile
-                })
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
+                    builtBy tasks.named("bundleReleaseAar")
+                }
             }
         }
     }
